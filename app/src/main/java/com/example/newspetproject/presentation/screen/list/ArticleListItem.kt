@@ -37,14 +37,6 @@ fun ArticleListItem(article: Article, onItemClick: () ->Unit ) {
     ) {
         Row(modifier = Modifier.padding(16.dp)) {
 
-//            AsyncImage(
-//                model = article.image_url,
-//                contentDescription = "Article Image",
-//                contentScale = ContentScale.Crop,
-//                modifier = Modifier
-//                    .size(80.dp)
-//                    .clip(MaterialTheme.shapes.medium)
-//            )
             AndroidView(
                 factory = { context ->
                     ImageView(context).apply {
@@ -54,7 +46,7 @@ fun ArticleListItem(article: Article, onItemClick: () ->Unit ) {
                     }
                 },
                 modifier = Modifier
-                    .size(160.dp)
+                    .size(80.dp)
                     .clip(CircleShape)
             )
 

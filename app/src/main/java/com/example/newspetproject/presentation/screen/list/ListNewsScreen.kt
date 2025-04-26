@@ -15,18 +15,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.newspetproject.navigation.Screen
+import com.example.newspetproject.presentation.screen.ShimmerListItem
 import com.example.newspetproject.presentation.viewmodel.NewsViewModel
 
 
 @Composable
 fun ListNewsScreen(
+    modifier: Modifier,
     navController: NavController,
-    newsViewModel:NewsViewModel
+    newsViewModel: NewsViewModel
 ) {
 
-    val news = newsViewModel.news.observeAsState(emptyList())
+    val news by newsViewModel.news.observeAsState(emptyList())
+
+    val isLoading by newsViewModel.isLoading.observeAsState(true)
 
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -35,11 +40,39 @@ fun ListNewsScreen(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            items(news.value){ article ->
-                ArticleListItem(article, onItemClick = {navController.navigate(Screen.DetailNewsScreen.route)})
+
+            if (isLoading) {
+                items(10) {
+                    ShimmerListItem(
+                        isLoading = true,
+                        contentAfterLoading = {},
+                        modifier = modifier
+                    )
+                }
+            } else {
+                Log.d("TEST-TAG", "LazyColumn")
+                items(news) { article ->
+                    Log.d("TEST-TAG", "isLoading = $isLoading")
+                    ShimmerListItem(
+                        isLoading = isLoading,
+                        contentAfterLoading = {
+                            ArticleListItem(
+                                article = article,
+                                onItemClick = {
+                                    navigateToDetailScreen(
+                                        navController = navController,
+                                        articleId = article.uuid
+                                    )
+                                }
+                            )
+                        },
+                        modifier = modifier
+                    )
+                }
             }
         }
     }
-
-
 }
+
+fun navigateToDetailScreen(navController: NavController, articleId: String) =
+    navController.navigate("${Screen.DetailNewsScreen.route}/${articleId}")
