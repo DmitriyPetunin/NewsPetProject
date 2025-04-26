@@ -1,7 +1,7 @@
 package com.example.data.service
 
+import com.example.data.model.detail.NewsDetailApi
 import com.example.data.model.list.NewsResponse
-import com.example.domain.model.detail.NewsDetail
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,7 +17,7 @@ interface NewsService {
 
     @GET("news/uuid/{id}")
     suspend fun getById(
-        @Path("id") id: Int,
+        @Path("id") id: String,
         @Query("api_token") api_token: String = "3HYXiaCpd28PzOPNemfUbqQmXWt679FtTU2M36NE",
-    ): NewsDetail
+    ): NewsDetailApi
 }
