@@ -48,7 +48,7 @@ fun SearchPageScreen(
 
 
     val context = LocalContext.current
-    LaunchedEffect(news.source) {
+    LaunchedEffect(news) {
         val sourceMessage = when (news.source) {
             SourceStatus.API -> "Данные получены из API"
             SourceStatus.DB -> "Данные получены из базы данных"
