@@ -1,4 +1,11 @@
 [versions]
+
+glide = "4.16.0"
+javaxInject = "1"
+minSdk = "24"
+targetSdk = "35"
+compileSdk = "35"
+
 agp = "8.9.1"
 kotlin = "2.0.21"
 hiltNavigationCompose = "1.2.0"
@@ -19,10 +26,14 @@ logging-interceptor = "4.11.0"
 kotlinx-serialization = "1.8.0"
 retrofit-kotlinx-serialization-converter = "1.0.0"
 ksp = "2.0.21-1.0.28"
+secretsGradlePlugin = "2.0.1"
 hilt-version = "2.51.1"
+room = "2.7.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -49,6 +60,14 @@ ksp-symbol-processing = { group = "com.google.devtools.ksp", name = "symbol-proc
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-version" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-version" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
+
+[bundles]
+network-deps = ["retrofit", "retrofit-kotlinx-serialization-converter", "kotlinx-serialization-json", "logging-interceptor"]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -58,5 +77,4 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrai
 pluginSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-version" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradlePlugin" }

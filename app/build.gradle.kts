@@ -10,14 +10,15 @@ plugins {
 
 android {
     namespace = "com.example.newspetproject"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.example.newspetproject"
-        minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+
+        versionCode = rootProject.extra.get("versionCode") as Int
+        versionName = rootProject.extra.get("versionName") as String
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,8 +47,18 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
-    implementation(project(":data"))
+    //Core
+    implementation(project(":core:base"))
+    implementation(project(":core:base-feature"))
+    implementation(project(":core:presentation"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:navigation"))
+
+    //Feature
+    implementation(project(":feature:mainpage"))
+    implementation(project(":feature:searchpage"))
+    implementation(project(":feature:detailpage"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
