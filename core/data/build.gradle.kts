@@ -38,7 +38,7 @@ android {
 dependencies {
 
     //Core
-    implementation(project(path = ":core:presentation"))
+    implementation(project(path = ":core:base"))
     implementation(project(path = ":core:storage"))
     implementation(project(path = ":core:domain"))
     implementation(project(path = ":core:network"))

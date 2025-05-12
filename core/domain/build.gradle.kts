@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "com.example.domain"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -36,6 +36,8 @@ android {
 
 dependencies {
 
+    //Core
+    implementation(project(path = ":core:base"))
     implementation(project(path = ":core:presentation"))
 
     // Hilt

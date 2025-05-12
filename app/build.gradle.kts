@@ -76,22 +76,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Coil
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-
-    //Glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-
     // navigation
     implementation(libs.androidx.hilt.navigation.compose)
     implementation("androidx.navigation:navigation-compose:2.8.9")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.logging.interceptor)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.retrofit.kotlinx.serialization.converter)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)

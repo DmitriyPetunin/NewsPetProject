@@ -1,6 +1,6 @@
 package com.example.storage.mapper
 
-import com.example.domain.model.list.Article
+import com.example.base.model.list.Article
 import com.example.storage.entities.ArticleEntity
 
 import javax.inject.Inject
@@ -9,7 +9,7 @@ class ArticleDbToArticleDomainMapper @Inject constructor(): (ArticleEntity?) -> 
     override fun invoke(p1: ArticleEntity?): Article {
         return p1?.let {
             Article(
-                uuid  = it.id,
+                uuid = it.id,
                 title = it.title,
                 description = it.description,
                 keywords = "",

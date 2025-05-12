@@ -1,15 +1,14 @@
-package com.example.base_feature.viewmodel
+package com.example.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecase.FetchNewsByIdUseCase
-import com.example.domain.usecase.FetchNewsBySearchInputStringUseCase
-import com.example.domain.usecase.FetchNewsUseCase
-import com.example.presentation.model.ArticlesResult
-import com.example.presentation.ui.NewsScreenState
-import com.example.presentation.ui.NewsState
-import com.example.presentation.ui.SourceStatus
+import com.example.base.state.NewsScreenState
+import com.example.base.state.NewsState
+import com.example.base.state.SourceStatus
+import com.example.presentation.usecase.FetchNewsByIdUseCase
+import com.example.presentation.usecase.FetchNewsBySearchInputStringUseCase
+import com.example.presentation.usecase.FetchNewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,13 +24,23 @@ class NewsViewModel @Inject constructor(
     private val fetchNewsBySearchInputStringUseCase: FetchNewsBySearchInputStringUseCase
 ):ViewModel() {
 
-    private val _state = MutableStateFlow(NewsScreenState(emptyList(), source = SourceStatus.LOADING))
+    private val _state = MutableStateFlow(
+        NewsScreenState(
+            emptyList(),
+            source = SourceStatus.LOADING
+        )
+    )
     val state: StateFlow<NewsScreenState> = _state
 
     private val _detailNewsState = MutableStateFlow<NewsState>(NewsState.NewsLoading)
     val detailNewsState:StateFlow<NewsState> = _detailNewsState
 
-    private val _searchNewsState = MutableStateFlow(NewsScreenState(emptyList(), source = SourceStatus.LOADING))
+    private val _searchNewsState = MutableStateFlow(
+        NewsScreenState(
+            emptyList(),
+            source = SourceStatus.LOADING
+        )
+    )
     val searchNewsState: StateFlow<NewsScreenState> = _searchNewsState
 
     init {
@@ -47,19 +56,30 @@ class NewsViewModel @Inject constructor(
 
             _state.value = result.fold(
                 onSuccess = { articlesResult ->
-                    when (articlesResult) {
-                        is ArticlesResult.FromApi -> {
+                    when (articlesResult.source) {
+                        SourceStatus.API -> {
                             NewsScreenState(
-                                news = articlesResult.articles.map { NewsState.NewsContent(it) },
+                                news = articlesResult.articles.map {
+                                    NewsState.NewsContent(
+                                        it
+                                    )
+                                },
                                 source = SourceStatus.API
                             )
                         }
-                        is ArticlesResult.FromDb -> {
+                        SourceStatus.DB -> {
                             NewsScreenState(
-                                news = articlesResult.articles.map { NewsState.NewsContent(it) },
+                                news = articlesResult.articles.map {
+                                    NewsState.NewsContent(
+                                        it
+                                    )
+                                },
                                 source = SourceStatus.DB
                             )
                         }
+
+                        SourceStatus.ERROR -> TODO()
+                        SourceStatus.LOADING -> TODO()
                     }
                 },
                 onFailure = { exception ->
@@ -120,19 +140,30 @@ class NewsViewModel @Inject constructor(
 
             _searchNewsState.value = result.fold(
                 onSuccess = { articlesResult ->
-                    when (articlesResult) {
-                        is ArticlesResult.FromApi -> {
+                    when (articlesResult.source) {
+                        SourceStatus.API -> {
                             NewsScreenState(
-                                news = articlesResult.articles.map { NewsState.NewsContent(it) },
+                                news = articlesResult.articles.map {
+                                    NewsState.NewsContent(
+                                        it
+                                    )
+                                },
                                 source = SourceStatus.API
                             )
                         }
-                        is ArticlesResult.FromDb -> {
+                        SourceStatus.DB -> {
                             NewsScreenState(
-                                news = articlesResult.articles.map { NewsState.NewsContent(it) },
+                                news = articlesResult.articles.map {
+                                    NewsState.NewsContent(
+                                        it
+                                    )
+                                },
                                 source = SourceStatus.DB
                             )
                         }
+
+                        SourceStatus.ERROR -> TODO()
+                        SourceStatus.LOADING -> TODO()
                     }
                 },
                 onFailure = { exception ->

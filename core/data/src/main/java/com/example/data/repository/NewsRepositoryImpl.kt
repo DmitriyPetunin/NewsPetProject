@@ -2,12 +2,13 @@ package com.example.data.repository
 
 import com.example.data.mappers.ArticleApiToArticleDomainMapper
 import com.example.data.mappers.NewsDetailApiToNewsDetailDomainMapper
-import com.example.domain.model.detail.NewsDetail
-import com.example.domain.model.list.Article
+import com.example.base.model.detail.NewsDetail
+import com.example.base.model.list.Article
+import com.example.base.model.list.ListNews
+import com.example.base.state.SourceStatus
 import com.example.domain.repository.NewsRepository
 import com.example.network.model.list.NewsResponse
 import com.example.network.service.NewsService
-import com.example.presentation.model.ArticlesResult
 import com.example.storage.RequestType
 import com.example.storage.dao.NewsDao
 import com.example.storage.entities.ArticleEntity
@@ -24,10 +25,10 @@ class NewsRepositoryImpl @Inject constructor(
     private val newsDao: NewsDao
 ):NewsRepository {
 
-    override suspend fun getAll(): ArticlesResult {
+    override suspend fun getAll(): ListNews {
         val response: NewsResponse = newsService.getAll()
         val list = response.data
-        return ArticlesResult.FromApi(list.map { articleApi -> articleDomainMapper.invoke(articleApi)})
+        return ListNews(articles = list.map { articleApi -> articleDomainMapper.invoke(articleApi)}, source = SourceStatus.API)
     }
 
     override suspend fun getById(id: String): NewsDetail {
@@ -35,9 +36,7 @@ class NewsRepositoryImpl @Inject constructor(
         return newsDetailDomainMapper.invoke(response)
     }
 
-    override suspend fun getAllBySearch(input: String): ArticlesResult {
-
-        var resultList:List<Article> = emptyList()
+    override suspend fun getAllBySearch(input: String): ListNews {
 
         val req = newsDao.getReqByQuery(input)
 
@@ -45,7 +44,6 @@ class NewsRepositoryImpl @Inject constructor(
 
             val response: NewsResponse = newsService.getAllBySearch(input)
             val list = response.data
-            resultList = list.map { articleApi -> articleDomainMapper.invoke(articleApi)}
 
             val idReq = UUID.randomUUID().toString()
 
@@ -68,7 +66,7 @@ class NewsRepositoryImpl @Inject constructor(
                 requestId = idReq
             ) })
 
-            return ArticlesResult.FromApi(resultList)
+            return ListNews(source = SourceStatus.API, articles = list.map { articleDomainMapper.invoke(it) })
 
             //возвращаем API, сохраняем в кеш(req,article)
         } else{ // не пустой
@@ -78,7 +76,6 @@ class NewsRepositoryImpl @Inject constructor(
 
                 val response: NewsResponse = newsService.getAllBySearch(input)
                 val list = response.data
-                resultList = list.map { articleApi -> articleDomainMapper.invoke(articleApi)}
 
 
                 newsDao.deleteOldRequests(id = req.id)
@@ -105,10 +102,10 @@ class NewsRepositoryImpl @Inject constructor(
                 ) })
 
                 //удалить, записать новые req,article
-                return ArticlesResult.FromApi(resultList)
+                return ListNews(source = SourceStatus.API, articles = list.map { articleDomainMapper.invoke(it) })
             } else { // кеш актуален
-                resultList = newsDao.getArticlesByRequestId(req.id).map { articleDbToArticleDomainMapper.invoke(it) }
-                return ArticlesResult.FromDb(resultList)
+                val list = newsDao.getArticlesByRequestId(req.id)
+                return ListNews(source = SourceStatus.DB, articles = list.map { articleDbToArticleDomainMapper.invoke(it) } )
             }
         }
     }

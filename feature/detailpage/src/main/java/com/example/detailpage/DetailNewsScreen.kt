@@ -31,9 +31,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.bumptech.glide.Glide
-import com.example.domain.model.detail.NewsDetail
-import com.example.presentation.ui.NewsState
-import com.example.base_feature.viewmodel.NewsViewModel
+import com.example.base.model.detail.NewsDetail
+import com.example.base.state.NewsState
+import com.example.presentation.viewmodel.NewsViewModel
 import com.example.base.R as baseR
 
 
@@ -41,7 +41,7 @@ import com.example.base.R as baseR
 fun DetailNewsScreen(
     modifier: Modifier,
     id:String?,
-    newsViewModel: com.example.base_feature.viewmodel.NewsViewModel,
+    newsViewModel: NewsViewModel,
 ) {
 
     val detailNews by newsViewModel.detailNewsState.collectAsState()

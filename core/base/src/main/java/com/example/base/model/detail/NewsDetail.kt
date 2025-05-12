@@ -1,6 +1,6 @@
-package com.example.domain.model.list
+package com.example.base.model.detail
 
-class Article(
+class NewsDetail(
     val uuid: String,
     val title: String,
     val description: String,
@@ -11,11 +11,10 @@ class Article(
     val language: String,
     val published_at: String,
     val source: String,
-    val categories: List<String>,
-    val relevance_score: Float?
+    val categories: List<String>
 ){
     companion object{
-        val EMPTY = Article(
+        val EMPTY = NewsDetail(
             uuid = "",
             title = "",
             description = "",
@@ -26,8 +25,7 @@ class Article(
             language = "",
             published_at = "",
             source = "",
-            categories = emptyList(),
-            relevance_score = 0.0F
+            categories = emptyList()
         )
     }
 }

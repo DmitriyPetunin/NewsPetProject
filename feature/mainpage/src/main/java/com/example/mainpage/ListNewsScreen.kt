@@ -13,13 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.base.model.list.Article
+import com.example.base.state.NewsState
 import com.example.base_feature.ui.ArticleListItem
 import com.example.base_feature.ui.ErrorScreen
 import com.example.base_feature.ui.ShimmerListItem
-import com.example.domain.model.list.Article
 import com.example.navigation.Screen
-import com.example.presentation.ui.NewsState
-import com.example.base_feature.viewmodel.NewsViewModel
+import com.example.presentation.viewmodel.NewsViewModel
 
 
 @Composable
@@ -51,7 +51,7 @@ fun ListNewsScreen(
                             onItemClick = {
                                 navigateToDetailScreen(
                                     navController = navController,
-                                    articleId = (article.item as Article).uuid
+                                    articleId = (article.item as com.example.base.model.list.Article).uuid
                                 )
                             }
                         )

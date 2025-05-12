@@ -42,6 +42,7 @@ android {
 dependencies {
 
     //Core
+    implementation(project(path = ":core:base"))
     implementation(project(path = ":core:domain"))
 
     // Room

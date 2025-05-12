@@ -1,16 +1,15 @@
 package com.example.domain.di
 
 import com.example.domain.repository.NewsRepository
-import com.example.domain.usecase.FetchNewsByIdUseCase
 import com.example.domain.usecase.FetchNewsByIdUseCaseImpl
-import com.example.domain.usecase.FetchNewsBySearchInputStringUseCase
 import com.example.domain.usecase.FetchNewsBySearchInputStringUseCaseImpl
-import com.example.domain.usecase.FetchNewsUseCase
 import com.example.domain.usecase.FetchNewsUseCaseImpl
+import com.example.presentation.usecase.FetchNewsByIdUseCase
+import com.example.presentation.usecase.FetchNewsBySearchInputStringUseCase
+import com.example.presentation.usecase.FetchNewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 
 

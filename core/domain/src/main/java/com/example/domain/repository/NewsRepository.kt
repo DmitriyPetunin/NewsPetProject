@@ -1,15 +1,14 @@
 package com.example.domain.repository
 
-import com.example.domain.model.detail.NewsDetail
-import com.example.domain.model.list.Article
-import com.example.presentation.model.ArticlesResult
+import com.example.base.model.detail.NewsDetail
+import com.example.base.model.list.ListNews
 
 
 interface NewsRepository {
 
-    suspend fun getAll():ArticlesResult
+    suspend fun getAll():ListNews
 
-    suspend fun getAllBySearch(input:String): ArticlesResult
+    suspend fun getAllBySearch(input:String): ListNews
 
     suspend fun getById(id:String): NewsDetail
 

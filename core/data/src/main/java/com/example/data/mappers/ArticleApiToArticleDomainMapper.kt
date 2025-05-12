@@ -1,14 +1,14 @@
 package com.example.data.mappers
 
-import com.example.domain.model.list.Article
+import com.example.base.model.list.Article
 import com.example.network.model.list.ArticleApi
 import javax.inject.Inject
 
-class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> Article{
+class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> com.example.base.model.list.Article {
 
-    override fun invoke(articleApi: ArticleApi?): Article {
+    override fun invoke(articleApi: ArticleApi?): com.example.base.model.list.Article {
         return articleApi?.let {
-            Article(
+            com.example.base.model.list.Article(
                 uuid = articleApi.uuid,
                 title = articleApi.title,
                 description = articleApi.description,
@@ -22,6 +22,6 @@ class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> Ar
                 categories = articleApi.categories,
                 relevance_score = articleApi.relevance_score
             )
-        } ?: Article.EMPTY
+        } ?: com.example.base.model.list.Article.EMPTY
     }
 }

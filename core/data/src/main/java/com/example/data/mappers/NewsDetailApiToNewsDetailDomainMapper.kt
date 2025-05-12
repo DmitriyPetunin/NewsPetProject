@@ -1,13 +1,13 @@
 package com.example.data.mappers
 
-import com.example.domain.model.detail.NewsDetail
+import com.example.base.model.detail.NewsDetail
 import com.example.network.model.detail.NewsDetailApi
 import javax.inject.Inject
 
-class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailApi?) -> NewsDetail {
-    override fun invoke(newsDetailApi: NewsDetailApi?): NewsDetail {
+class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailApi?) -> com.example.base.model.detail.NewsDetail {
+    override fun invoke(newsDetailApi: NewsDetailApi?): com.example.base.model.detail.NewsDetail {
         return newsDetailApi?.let {
-            NewsDetail(
+            com.example.base.model.detail.NewsDetail(
                 uuid = newsDetailApi.uuid,
                 title = newsDetailApi.title,
                 description = newsDetailApi.description,
@@ -20,6 +20,6 @@ class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailA
                 source = newsDetailApi.source,
                 categories = newsDetailApi.categories
             )
-        } ?: NewsDetail.EMPTY
+        } ?: com.example.base.model.detail.NewsDetail.EMPTY
     }
 }

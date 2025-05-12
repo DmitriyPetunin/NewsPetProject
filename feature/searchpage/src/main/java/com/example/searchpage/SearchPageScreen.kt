@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.dp
 import com.example.base_feature.ui.ArticleListItem
 import com.example.base_feature.ui.ErrorScreen
 import com.example.base_feature.ui.ShimmerListItem
-import com.example.domain.model.list.Article
-import com.example.presentation.ui.NewsState
-import com.example.presentation.ui.SourceStatus
-import com.example.base_feature.viewmodel.NewsViewModel
+import com.example.base.model.list.Article
+import com.example.base.state.NewsState
+import com.example.base.state.SourceStatus
+import com.example.presentation.viewmodel.NewsViewModel
 
 @Composable
 fun SearchPageScreen(
