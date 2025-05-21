@@ -132,6 +132,7 @@ class NewsViewModel @Inject constructor(
     }
 
     fun search(input: String) {
+        Log.d("TEST-TAG","kdkadkkdkdkad")
         viewModelScope.launch {
 
             val result = runCatching {

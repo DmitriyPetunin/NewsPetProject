@@ -51,7 +51,6 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.8.9")
 
-
     //Ui
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)

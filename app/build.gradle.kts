@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":core:navigation"))
 
     //Feature
+    implementation(project(":feature:graphpage"))
     implementation(project(":feature:mainpage"))
     implementation(project(":feature:searchpage"))
     implementation(project(":feature:detailpage"))

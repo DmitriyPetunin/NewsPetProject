@@ -10,14 +10,16 @@ import androidx.navigation.navArgument
 
 @Composable
 fun AppNavGraph(
+    startDestination:String,
     navController: NavHostController,
     listNewsScreen: @Composable () -> Unit,
     detailNewsScreen: @Composable (String?) -> Unit,
-    searchNewsScreen: @Composable () -> Unit
+    searchNewsScreen: @Composable () -> Unit,
+    graphScreen: @Composable () -> Unit
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.SearchNewsScreen.route
+        startDestination = startDestination
     ){
 
         composable(route = Screen.ListNewsScreen.route){
@@ -26,6 +28,10 @@ fun AppNavGraph(
 
         composable(route = Screen.SearchNewsScreen.route){
             searchNewsScreen()
+        }
+
+        composable(route = Screen.GraphScreen.route) {
+            graphScreen()
         }
 
         composable(

@@ -4,11 +4,11 @@ import com.example.base.model.list.Article
 import com.example.network.model.list.ArticleApi
 import javax.inject.Inject
 
-class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> com.example.base.model.list.Article {
+class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> Article {
 
-    override fun invoke(articleApi: ArticleApi?): com.example.base.model.list.Article {
+    override fun invoke(articleApi: ArticleApi?): Article {
         return articleApi?.let {
-            com.example.base.model.list.Article(
+            Article(
                 uuid = articleApi.uuid,
                 title = articleApi.title,
                 description = articleApi.description,
@@ -22,6 +22,6 @@ class ArticleApiToArticleDomainMapper @Inject constructor(): (ArticleApi?) -> co
                 categories = articleApi.categories,
                 relevance_score = articleApi.relevance_score
             )
-        } ?: com.example.base.model.list.Article.EMPTY
+        } ?: Article.EMPTY
     }
 }

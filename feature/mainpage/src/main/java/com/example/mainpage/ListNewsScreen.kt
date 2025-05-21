@@ -51,7 +51,7 @@ fun ListNewsScreen(
                             onItemClick = {
                                 navigateToDetailScreen(
                                     navController = navController,
-                                    articleId = (article.item as com.example.base.model.list.Article).uuid
+                                    articleId = (article.item as Article).uuid
                                 )
                             }
                         )

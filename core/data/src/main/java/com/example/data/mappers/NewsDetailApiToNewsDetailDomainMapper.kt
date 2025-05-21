@@ -4,10 +4,10 @@ import com.example.base.model.detail.NewsDetail
 import com.example.network.model.detail.NewsDetailApi
 import javax.inject.Inject
 
-class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailApi?) -> com.example.base.model.detail.NewsDetail {
-    override fun invoke(newsDetailApi: NewsDetailApi?): com.example.base.model.detail.NewsDetail {
+class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailApi?) -> NewsDetail {
+    override fun invoke(newsDetailApi: NewsDetailApi?): NewsDetail {
         return newsDetailApi?.let {
-            com.example.base.model.detail.NewsDetail(
+            NewsDetail(
                 uuid = newsDetailApi.uuid,
                 title = newsDetailApi.title,
                 description = newsDetailApi.description,
@@ -20,6 +20,6 @@ class NewsDetailApiToNewsDetailDomainMapper @Inject constructor() : (NewsDetailA
                 source = newsDetailApi.source,
                 categories = newsDetailApi.categories
             )
-        } ?: com.example.base.model.detail.NewsDetail.EMPTY
+        } ?: NewsDetail.EMPTY
     }
 }
