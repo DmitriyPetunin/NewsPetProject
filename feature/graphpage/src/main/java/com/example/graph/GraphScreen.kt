@@ -23,11 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.base.action.GraphScreenAction
 import com.example.base.event.GraphScreenEvent
 import com.example.presentation.viewmodel.GraphViewModel
+
+import com.example.base.R as baseR
 
 
 @Composable
@@ -62,7 +65,7 @@ fun GraphScreen(
     ) {
 
         Text(
-            text = "Экран графика",
+            text = stringResource(baseR.string.graphScreen),
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = MaterialTheme.typography.displaySmall
         )
@@ -90,7 +93,7 @@ fun GraphScreen(
                 graphViewModel.onAction(GraphScreenAction.ClickButton)
         }) {
             Text(
-                text = "покажи график",
+                text = stringResource(baseR.string.buttonGraph),
             )
         }
 
