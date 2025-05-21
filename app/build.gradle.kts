@@ -10,14 +10,15 @@ plugins {
 
 android {
     namespace = "com.example.newspetproject"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.example.newspetproject"
-        minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+
+        versionCode = rootProject.extra.get("versionCode") as Int
+        versionName = rootProject.extra.get("versionName") as String
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,8 +47,19 @@ android {
 
 dependencies {
 
-    implementation(project(":domain"))
-    implementation(project(":data"))
+    //Core
+    implementation(project(":core:base"))
+    implementation(project(":core:base-feature"))
+    implementation(project(":core:presentation"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:navigation"))
+
+    //Feature
+    implementation(project(":feature:graphpage"))
+    implementation(project(":feature:mainpage"))
+    implementation(project(":feature:searchpage"))
+    implementation(project(":feature:detailpage"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -65,22 +77,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Coil
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
-
-    //Glide
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
-
     // navigation
     implementation(libs.androidx.hilt.navigation.compose)
     implementation("androidx.navigation:navigation-compose:2.8.9")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.logging.interceptor)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.retrofit.kotlinx.serialization.converter)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)

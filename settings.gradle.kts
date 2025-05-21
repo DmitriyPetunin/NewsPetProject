@@ -21,5 +21,15 @@ dependencyResolutionManagement {
 
 rootProject.name = "NewsPetProject"
 include(":app")
-include(":data")
-include(":domain")
+include(":core:data")
+include(":core:network")
+include(":core:domain")
+include(":feature:mainpage")
+include(":feature:searchpage")
+include(":core:storage")
+include(":core:presentation")
+include(":feature:detailpage")
+include(":core:base")
+include(":core:navigation")
+include(":core:base-feature")
+include(":feature:graphpage")
