@@ -13,7 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
-        app:sectors_count="5"
+        app:sectors_count="2"
         app:colors_array="@array/dia_colors" />
 
 </LinearLayout>

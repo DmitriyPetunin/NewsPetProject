@@ -103,7 +103,7 @@ class RainbowDiagram @JvmOverloads constructor(
         if (sectorsCount <= 0) return
 
         val sweepAngle = 360f / sectorsCount
-        var startAngle = -90f // Start at 9 o'clock
+        var startAngle = -180f
 
         for (i in 0 until sectorsCount) {
             val isActive = i == activeSector
@@ -113,28 +113,16 @@ class RainbowDiagram @JvmOverloads constructor(
             startAngle += sweepAngle
         }
 
-        startAngle = -90f
+        startAngle = -180f
         for (i in 0 until sectorsCount) {
             val isActive = i == activeSector
             val color = if (isActive) lightenColor(colors[i]) else colors[i]
-            drawRainbowSectorWithoutCircle(canvas, startAngle, sweepAngle, color)
+            drawRainbowSectorCircle(canvas, startAngle, sweepAngle, color)
             startAngle += sweepAngle
 
         }
 
         canvas.drawText(sectorsCount.toString(), centerX, centerY - (centerTextPaint.ascent() + centerTextPaint.descent()) / 2, centerTextPaint)
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                val x = event.x
-                val y = event.y
-                checkSectorTouched(x, y)
-                return true
-            }
-        }
-        return super.onTouchEvent(event)
     }
 
     private fun drawRainbowSector(canvas: Canvas, startAngle: Float, sweepAngle: Float, color: Int) {
@@ -154,7 +142,7 @@ class RainbowDiagram @JvmOverloads constructor(
         canvas.drawPath(path, paint)
     }
 
-    private fun drawRainbowSectorWithoutCircle(canvas: Canvas, startAngle: Float, sweepAngle: Float, color: Int) {
+    private fun drawRainbowSectorCircle(canvas: Canvas, startAngle: Float, sweepAngle: Float, color: Int) {
 
         val endAngle = startAngle + sweepAngle
 
@@ -170,16 +158,31 @@ class RainbowDiagram @JvmOverloads constructor(
     private fun lightenColor(color: Int): Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)
-        hsv[1] *= 0.7f
-        hsv[2] = min(1f, hsv[2] * 1.3f)
+
+        hsv[1] = min(1f, hsv[1] * 1.5f)
+
+        hsv[2] = 1f
+
         return Color.HSVToColor(hsv)
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val x = event.x
+                val y = event.y
+                checkSectorTouched(x, y)
+                return true
+            }
+        }
+        return super.onTouchEvent(event)
     }
 
     private fun checkSectorTouched(x: Float, y: Float) {
         val distance = sqrt((x - centerX).pow(2) + (y - centerY).pow(2))
 
         val sweepAngle = 360f / sectorsCount
-        var startAngle = -90f
+        var startAngle = -180f
 
         for (i in 0 until sectorsCount) {
             if (isTouchOnCircle(x, y, startAngle, sweepAngle)) {
@@ -196,7 +199,7 @@ class RainbowDiagram @JvmOverloads constructor(
         }
 
         val angle = Math.toDegrees(atan2(y - centerY, x - centerX).toDouble())
-        val normalizedAngle = (angle + 90 + 360) % 360
+        val normalizedAngle = (angle + 180 + 360) % 360
         val sectorAngle = 360f / sectorsCount
 
         val sector = (normalizedAngle / sectorAngle).toInt()
