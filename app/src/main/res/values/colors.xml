@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#C54949</color>
+    <color name="yellow">#A9A13E</color>
+    <color name="green">#44C892</color>
+    <color name="blue">#4144C5</color>
+    <color name="pink">#B83D9C</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <array name="dia_colors">
+        <item>@color/red</item>
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+        <item>@color/blue</item>
+        <item>@color/pink</item>
+        <item>@color/black</item>
+        <item>@color/white</item>
+    </array>
+</resources>
